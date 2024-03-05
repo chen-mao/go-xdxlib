@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/chenmao/go-xdxlib/pkg/xdxmdev"
+	"github.com/chen-mao/go-xdxlib/pkg/xdxmdev"
 )
 
 func main() {

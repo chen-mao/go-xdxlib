@@ -9,7 +9,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/chenmao/go-xdxlib/pkg/xdxpci"
+	"github.com/chen-mao/go-xdxlib/pkg/xdxpci"
 )
 
 const (
