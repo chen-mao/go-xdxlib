@@ -1,15 +1,15 @@
 package xdxpci
 
-// import (
-// 	"log"
-// )
+import (
+	"log"
+)
 
-// type logger interface {
-// 	Warningf(string, ...interface{})
-// }
+type logger interface {
+	Warningf(string, ...interface{})
+}
 
-// type simpleLogger struct{}
+type simpleLogger struct{}
 
-// func (l simpleLogger) Warningf(format string, v ...interface{}) {
-// 	log.Printf("WARNING: "+format, v)
-// }
+func (l simpleLogger) Warningf(format string, v ...interface{}) {
+	log.Printf("WARNING: "+format, v)
+}
