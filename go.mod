@@ -1,3 +1,3 @@
-module github.com/chenmao/go-xdxlib
+module github.com/chen-mao/go-xdxlib
 
 go 1.19
