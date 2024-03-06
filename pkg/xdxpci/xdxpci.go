@@ -40,20 +40,11 @@ func (xp *XDXCTPCIDevice) IsGPU() bool {
 	return xp.Class == PCIVgaControllerClass
 }
 
-// Interface allows us to get a list of all XDXCT PCI devices
-type Interface interface {
-	GetGPUs() ([]*XDXCTPCIDevice, error)
-	GetGPUByIndex(int) (*XDXCTPCIDevice, error)
-	GetGPUByPciBusID(string) (*XDXCTPCIDevice, error)
-}
-
 type xdxpci struct {
 	logger         logger
 	pciDevicesRoot string
 	pcidbPath      string
 }
-
-var _ Interface = (*xdxpci)(nil)
 
 func New(opts ...Option) Interface {
 	n := &xdxpci{}
