@@ -45,7 +45,6 @@ func NewParentDevice(devicePath string) (*ParentDevice, error) {
 			return nil, fmt.Errorf("unable to parse mdev_type name for mdev %s", mdevTypeStr)
 		}
 	}
-	fmt.Println("mdev types: ", mdevTypesMap)
 	return &ParentDevice{
 		xdxDevice,
 		mdevTypesMap,
@@ -81,7 +80,6 @@ func (pd *ParentDevice) CreateMDEVDevice(mdevType string, uuid string) error {
 
 // IsMDEVTypeSupported checks if the mdevType is supported by the GPU
 func (pd *ParentDevice) IsMDEVTypeSupported(mdevType string) bool {
-	fmt.Println("mdev path types: ", pd.mdevPaths)
 	_, found := pd.mdevPaths[mdevType]
 	return found
 }
