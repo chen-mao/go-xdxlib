@@ -46,7 +46,7 @@ func (m *xdxmdev) GetAllMediatedDevices() ([]*Device, error) {
 	return xdxdevices, nil
 }
 
-func (m *xdxmdev) GetAllParentMediatedDevices() ([]*ParentDevice, error) {
+func (m *xdxmdev) GetAllParentDevices() ([]*ParentDevice, error) {
 	deviceDirs, err := os.ReadDir(m.mdevParentRoot)
 	if err != nil {
 		return nil, fmt.Errorf("unable to read PCI bus devices: %v", err)

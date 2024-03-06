@@ -20,8 +20,8 @@ func main() {
 		fmt.Printf("iommu_group-->: %v\n", v.IommuGroup)
 	}
 
-	fmt.Println("------- Parent Mediated Devices --------")
-	resParentMD, err := xdxmdev.GetAllParentMediatedDevices()
+	fmt.Println("------- Parent Devices --------")
+	resParentMD, err := xdxmdev.GetAllParentDevices()
 	if err != nil {
 		return
 	}
