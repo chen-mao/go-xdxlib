@@ -19,6 +19,20 @@ type Device struct {
 	Parent     ParentDevice
 }
 
+// Delete deletes a mediated device (vGPU)
+func (d *Device) Delete() error {
+	removefile, err := os.OpenFile(filepath.Join(d.Path, "remove"), os.O_WRONLY|os.O_SYNC, 0200)
+	if err != nil {
+		return fmt.Errorf("unable to open remove file: %v", err)
+	}
+	_, err = removefile.WriteString("1")
+	if err != nil {
+		return fmt.Errorf("unable to delete mdev: %v", err)
+	}
+	return nil
+}
+
+// NewDevice constructs a Device, which represents an xdxct mdev (vGPU) device
 func NewMediatedDevice(root string, uuid string) (*Device, error) {
 	path := path.Join(root, uuid)
 
