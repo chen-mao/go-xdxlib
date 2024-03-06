@@ -57,3 +57,29 @@ func newXDXCTPCIDeviceFromPath(devicePath string) (*xdxpci.XDXCTPCIDevice, error
 	return xdxpci.New(xdxpci.WithPCIDevicesRoot(root)).
 		GetGPUByPciBusID(address)
 }
+
+// CreateMDEVDevice creates a mediated device (vGPU) on the parent GPU
+func (pd *ParentDevice) CreateMDEVDevice(mdevType string, uuid string) error {
+	mdevPath, ok := pd.mdevPaths[mdevType]
+	if !ok {
+		return fmt.Errorf("unable to create mdev %s: mde not supported by parent device %s", mdevType, pd.Address)
+	}
+
+	file, err := os.OpenFile(filepath.Join(mdevPath, "create"), os.O_WRONLY|os.O_SYNC, 0200)
+	if err != nil {
+		return fmt.Errorf("unable to open create file: %v", err)
+	}
+
+	_, err = file.WriteString(uuid)
+	if err != nil {
+		return fmt.Errorf("unable to create mdev: %v", err)
+	}
+
+	return nil
+}
+
+// IsMDEVTypeSupported checks if the mdevType is supported by the GPU
+func (pd *ParentDevice) IsMDEVTypeSupported(mdevType string) bool {
+	_, found := pd.mdevPaths[mdevType]
+	return found
+}
