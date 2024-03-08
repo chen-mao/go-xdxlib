@@ -46,6 +46,7 @@ func (m *xdxmdev) GetAllMediatedDevices() ([]*Device, error) {
 	return xdxdevices, nil
 }
 
+// GetAllParentDevices returns all XDXCT Parent PCI devices on the system
 func (m *xdxmdev) GetAllParentDevices() ([]*ParentDevice, error) {
 	deviceDirs, err := os.ReadDir(m.mdevParentRoot)
 	if err != nil {
