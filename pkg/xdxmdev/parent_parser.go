@@ -5,6 +5,7 @@ import (
 	"os"
 	"path/filepath"
 	"regexp"
+	"strconv"
 	"strings"
 
 	"github.com/chen-mao/go-xdxlib/pkg/xdxpci"
@@ -82,4 +83,21 @@ func (pd *ParentDevice) CreateMDEVDevice(mdevType string, uuid string) error {
 func (pd *ParentDevice) IsMDEVTypeSupported(mdevType string) bool {
 	_, found := pd.mdevPaths[mdevType]
 	return found
+}
+
+func (pd *ParentDevice) GetAvailableMDEVInstances(mdevType string) (int, error) {
+	mdevPath, ok := pd.mdevPaths[mdevType]
+	if !ok {
+		return -1, nil
+	}
+	available, err := os.ReadFile(filepath.Join(mdevPath, "available_instances"))
+	if err != nil {
+		return -1, fmt.Errorf("unable to read available instances: %v", err)
+	}
+
+	availableInstances, err := strconv.Atoi(strings.TrimSpace(string(available)))
+	if err != nil {
+		return -1, fmt.Errorf("unable to convert available instances to an int: %v", err)
+	}
+	return availableInstances, nil
 }
